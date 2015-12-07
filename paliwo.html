@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<form>
+  <input type="radio" name="car" value="0.06" checked>VW Golf III 1.4i
+  <br>
+  <input type="radio" name="car" value="0.05">Opel Corsa C 1.0i
+  <br><br>
+   Ile km?<br>
+  <input type="number" id="km" name="km">
+  <br><br>
+  <input type="radio" name="road" value="1" checked>Na trasie
+  <br>
+  <input type="radio" name="road" value="1.8">W mieście
+  <br>
+   <input type="radio" name="road" value="1.4">Mieszany
+  <br><br>
+  Cena paliwa <br>
+   <input type="number" id="price" name="price">
+  <br><br>
+  <button id="wyslijbtn" type="button">Sprawdź</button>
+</form>
+
+<p id="p">
+</p>
+
+<script>
+
+	var wyslij = document.getElementById("wyslijbtn")
+	
+	wyslij.onclick=function(){
+	
+		var x = document.getElementsByName("car");
+		var kilometers = document.getElementById("km").value;
+		var roadtype = document.getElementsByName("road");
+		var fuelprice = document.getElementById("price").value;
+		
+		function check(){
+		if (kilometers == null || kilometers == "" || fuelprice== null || fuelprice == "" ) {
+        alert("Należy wypełnić wszystkie pola formularza!");
+		return false;
+		}
+		else if (kilometers < 0 || fuelprice < 0 )
+		{
+		alert("Wartości nie mogą być ujemne!");
+		return false;
+		}
+		
+		else
+		{
+		function paliwo(){
+		for (var i = 0, length = x.length; i < length; i++) {
+			if (x[i].checked == true) {
+
+			var fuel = x[i].value;
+			return fuel
+			break;
+			}
+		}
+		};
+		
+		var benzynka = paliwo();
+	
+		function trasa(){
+		for (var i = 0, length = roadtype.length; i < length; i++) {
+			if (roadtype[i].checked == true) {
+
+			var roadvalue = roadtype[i].value;
+			return roadvalue
+			break;
+			}
+		}
+		};
+		
+		var typtrasy = trasa();
+		
+		var calykoszt = (benzynka * kilometers * typtrasy * fuelprice).toFixed(2);
+	
+		document.getElementById("p").innerHTML = "Za paliwo zapłacisz " + calykoszt + " zł"; };
+		}
+		
+	check();
+
+	};
+
+</script>
+
+
+</body>
+
+</html>
